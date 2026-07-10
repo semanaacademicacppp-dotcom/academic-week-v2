@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1ª Semana Acadêmica do CPPP | UFMS</title>
+  <meta name="description" content="1ª Semana Acadêmica do CPPP: Educação e Informática: uma abordagem integrada. Evento da UFMS Campus de Ponta Porã, de 16 a 18 de setembro de 2026." />
+  <meta name="theme-color" content="#32195B" />
+  <meta property="og:title" content="1ª Semana Acadêmica do CPPP" />
+  <meta property="og:description" content="Educação e Informática: uma abordagem integrada. UFMS – Campus de Ponta Porã, 16 a 18 de setembro de 2026." />
+  <meta property="og:image" content="assets/cabecalho-semana-cppp.png" />
+  <style>
+    :root {
+      --roxo: #32195B;
+      --roxo-escuro: #1F1837;
+      --roxo-medio: #564076;
+      --laranja: #ED5E21;
+      --laranja-vivo: #F45114;
+      --teal: #006C68;
+      --teal-medio: #217B7F;
+      --turquesa: #48C0BB;
+      --fundo: #F5F5F2;
+      --branco: #FFFFFF;
+      --cinza: #6D8193;
+      --texto: #1F1837;
+      --borda: rgba(49, 25, 91, .16);
+      --sombra: 0 18px 45px rgba(31, 24, 55, .13);
+      --raio: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Montserrat, Arial, Helvetica, sans-serif;
+      color: var(--texto);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(237, 94, 33, .08), transparent 35%),
+        radial-gradient(circle at 90% 8%, rgba(72, 192, 187, .14), transparent 32%),
+        linear-gradient(180deg, #fff 0%, var(--fundo) 100%);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--borda);
+    }
+
+    .topbar__inner {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: .02em;
+      color: var(--roxo);
+      text-decoration: none;
+    }
+
+    .brand__mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, var(--roxo), var(--teal));
+      box-shadow: 0 8px 20px rgba(49, 25, 91, .25);
+      font-size: 1.1rem;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--roxo-escuro);
+    }
+
+    nav a {
+      text-decoration: none;
+      opacity: .86;
+    }
+
+    nav a:hover { opacity: 1; color: var(--laranja); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: 900;
+      text-decoration: none;
+      border: 2px solid transparent;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--sombra); }
+    .btn--primary { background: var(--laranja-vivo); color: #fff; }
+    .btn--secondary { background: var(--roxo); color: #fff; }
+    .btn--ghost { background: #fff; color: var(--roxo); border-color: rgba(49, 25, 91, .22); }
+
+    .hero {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto;
+      padding: 42px 0 36px;
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .hero__content { padding: 24px 0; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(0, 108, 104, .10);
+      color: var(--teal);
+      font-size: .9rem;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 5.6vw, 5.3rem);
+      line-height: .92;
+      letter-spacing: -.05em;
+      color: var(--roxo);
+      text-transform: uppercase;
+    }
+
+    .hero strong.orange { color: var(--laranja-vivo); }
+    .hero__subtitle {
+      margin: 18px 0 0;
+      color: var(--teal);
+      font-size: clamp(1.25rem, 2vw, 1.8rem);
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .hero__text {
+      margin: 20px 0 0;
+      max-width: 720px;
+      font-size: 1.08rem;
+      color: rgba(31, 24, 55, .86);
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero__visual {
+      position: relative;
+      min-height: 360px;
+      border-radius: calc(var(--raio) + 10px);
+      background: #fff;
+      box-shadow: var(--sombra);
+      border: 1px solid var(--borda);
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: 26px;
+    }
+
+    .hero__visual::before,
+    .hero__visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: .38;
+    }
+
+    .hero__visual::before {
+      width: 260px;
+      height: 260px;
+      background: var(--turquesa);
+      top: -120px;
+      right: -90px;
+    }
+
+    .hero__visual::after {
+      width: 200px;
+      height: 200px;
+      background: var(--laranja);
+      bottom: -100px;
+      left: -70px;
+    }
+
+    .hero__visual img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .quick-info {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto 26px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, .92);
+      border: 1px solid var(--borda);
+      border-radius: var(--raio);
+      padding: 18px;
+      box-shadow: 0 12px 24px rgba(31, 24, 55, .07);
+    }
+
+    .info-card__label {
+      display: block;
+      color: var(--cinza);
+      font-size: .82rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+    }
+
+    .info-card__value {
+      display: block;
+      color: var(--roxo);
+      font-size: 1.05rem;
+      font-weight: 900;
+      line-height: 1.28;
+    }
+
+    section {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto;
+      padding: 54px 0;
+    }
+
+    .section-title {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+
+    .section-title__kicker {
+      color: var(--laranja-vivo);
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-size: .83rem;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--roxo);
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .lead {
+      max-width: 880px;
+      margin: 0;
+      font-size: 1.08rem;
+      color: rgba(31, 24, 55, .86);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--borda);
+      border-radius: var(--raio);
+      padding: 28px;
+      box-shadow: 0 14px 30px rgba(31, 24, 55, .08);
+    }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      color: var(--teal);
+      font-size: 1.32rem;
+      line-height: 1.2;
+    }
+
+    .panel p { margin: 0 0 14px; }
+    .panel p:last-child { margin-bottom: 0; }
+
+    .program-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .program-item {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(0,108,104,.18);
+      background: #fff;
+    }
+
+    .program-item__icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, rgba(0,108,104,.14), rgba(72,192,187,.22));
+    }
+
+    .program-item h3 { margin: 0 0 4px; color: var(--roxo); }
+    .program-item p { margin: 0; color: rgba(31, 24, 55, .78); }
+
+    .dates-box {
+      display: grid;
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .date-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(237, 94, 33, .09);
+      border: 1px solid rgba(237, 94, 33, .22);
+    }
+
+    .date-row strong { color: var(--roxo); }
+    .date-row span { color: var(--laranja-vivo); font-weight: 1000; font-size: 1.18rem; }
+
+    .topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(49, 25, 91, .08);
+      color: var(--roxo);
+      font-weight: 800;
+      font-size: .92rem;
+    }
+
+    .cta {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 30px auto 64px;
+      padding: 34px;
+      border-radius: calc(var(--raio) + 8px);
+      background:
+        linear-gradient(135deg, rgba(49,25,91,.96), rgba(0,108,104,.96)),
+        var(--roxo);
+      color: #fff;
+      box-shadow: var(--sombra);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cta::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border: 36px solid rgba(255,255,255,.08);
+      border-radius: 50%;
+      right: -110px;
+      top: -90px;
+    }
+
+    .cta h2 { color: #fff; position: relative; z-index: 1; }
+    .cta p { margin: 10px 0 0; color: rgba(255,255,255,.88); position: relative; z-index: 1; }
+    .cta__actions { display: flex; flex-wrap: wrap; gap: 12px; position: relative; z-index: 1; }
+    .cta .btn--primary { background: var(--laranja-vivo); }
+    .cta .btn--ghost { color: #fff; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.36); }
+
+    footer {
+      background: var(--roxo-escuro);
+      color: rgba(255,255,255,.82);
+      padding: 30px 0;
+    }
+
+    .footer__inner {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .footer__inner strong { color: #fff; }
+    .footer__links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .footer__links a { color: #fff; font-weight: 800; text-decoration: none; }
+
+    @media (max-width: 920px) {
+      nav { display: none; }
+      .hero, .grid-2, .cta { grid-template-columns: 1fr; }
+      .quick-info { grid-template-columns: 1fr 1fr; }
+      .hero__visual { min-height: 260px; }
+      .footer__inner { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .topbar__inner, .hero, .quick-info, section, .cta, .footer__inner { width: min(100% - 24px, var(--max)); }
+      .quick-info { grid-template-columns: 1fr; }
+      .hero { padding-top: 28px; gap: 22px; }
+      .hero__actions, .cta__actions { display: grid; }
+      .btn { width: 100%; }
+      .program-item { grid-template-columns: 1fr; }
+      .date-row { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    LINKS PARA TROCAR:
+    1) Inscrição: substitua o valor de --LINK_INSCRICAO-- pelo link do Sympla.
+    2) Submissão: substitua o valor de --LINK_SUBMISSAO-- pelo link do formulário ou sistema de submissão.
+  -->
+
+  <header class="topbar" aria-label="Menu principal">
+    <div class="topbar__inner">
+      <a class="brand" href="#inicio" aria-label="Ir para o início">
+        <span class="brand__mark">π</span>
+        <span>Semana Acadêmica CPPP</span>
+      </a>
+      <nav aria-label="Navegação">
+        <a href="#apresentacao">Apresentação</a>
+        <a href="#programacao">Programação</a>
+        <a href="#submissao">Submissão</a>
+        <a href="#comissoes">Comissões</a>
+      </nav>
+      <a class="btn btn--primary" href="--LINK_INSCRICAO--" target="_blank" rel="noopener">Inscreva-se</a>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero" aria-labelledby="titulo-evento">
+      <div class="hero__content">
+        <p class="eyebrow">UFMS – Campus de Ponta Porã</p>
+        <h1 id="titulo-evento"><strong class="orange">1ª</strong> Semana Acadêmica do CPPP</h1>
+        <p class="hero__subtitle">Educação e Informática: uma abordagem integrada</p>
+        <p class="hero__text">
+          Evento acadêmico integrado dos cursos de Licenciatura em Matemática, Licenciatura em Pedagogia e Bacharelado em Sistemas de Informação da UFMS/CPPP, voltado à formação, à troca de experiências e à divulgação da produção acadêmica.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="--LINK_INSCRICAO--" target="_blank" rel="noopener">Fazer inscrição</a>
+          <a class="btn btn--secondary" href="--LINK_SUBMISSAO--" target="_blank" rel="noopener">Submeter trabalho</a>
+          <a class="btn btn--ghost" href="#programacao">Ver programação</a>
+        </div>
+      </div>
+      <div class="hero__visual" aria-label="Arte oficial da 1ª Semana Acadêmica do CPPP">
+        <img src="assets/cabecalho-semana-cppp.png" alt="Logo da 1ª Semana Acadêmica do CPPP" />
+      </div>
+    </section>
+
+    <div class="quick-info" aria-label="Informações principais do evento">
+      <div class="info-card">
+        <span class="info-card__label">Data</span>
+        <span class="info-card__value">16 a 18 de setembro de 2026</span>
+      </div>
+      <div class="info-card">
+        <span class="info-card__label">Local</span>
+        <span class="info-card__value">UFMS – Campus de Ponta Porã</span>
+      </div>
+      <div class="info-card">
+        <span class="info-card__label">Tema</span>
+        <span class="info-card__value">Educação e Informática</span>
+      </div>
+      <div class="info-card">
+        <span class="info-card__label">Submissões</span>
+        <span class="info-card__value">01/08/2026 a 30/08/2026</span>
+      </div>
+    </div>
+
+    <section id="apresentacao" aria-labelledby="titulo-apresentacao">
+      <div class="section-title">
+        <span class="section-title__kicker">Apresentação</span>
+        <h2 id="titulo-apresentacao">Integração entre educação, tecnologia e produção acadêmica</h2>
+      </div>
+      <div class="grid-2">
+        <div class="panel">
+          <h3>Sobre o evento</h3>
+          <p>
+            A <strong>1ª Semana Acadêmica do CPPP</strong> é uma iniciativa da <strong>UFMS – Campus de Ponta Porã</strong>, promovida pelos cursos de <strong>Licenciatura em Matemática</strong>, <strong>Licenciatura em Pedagogia</strong> e <strong>Bacharelado em Sistemas de Informação</strong>.
+          </p>
+          <p>
+            O evento tem como objetivo fortalecer a integração entre diferentes áreas do conhecimento, promovendo o diálogo entre formação docente, tecnologia, inovação, práticas pedagógicas e pesquisa acadêmica.
+          </p>
+        </div>
+        <div class="panel">
+          <h3>Objetivos</h3>
+          <p>
+            A Semana Acadêmica cria um espaço de troca de experiências entre estudantes, docentes, pesquisadores e demais participantes da comunidade acadêmica, estimulando a reflexão crítica, a socialização de conhecimentos e a divulgação de trabalhos científicos.
+          </p>
+          <p>
+            Trata-se de uma ação inédita de integração entre licenciaturas e bacharelado no CPPP, aproximando saberes e fortalecendo a formação acadêmica no campus.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="programacao" aria-labelledby="titulo-programacao">
+      <div class="section-title">
+        <span class="section-title__kicker">Programação</span>
+        <h2 id="titulo-programacao">Atividades previstas</h2>
+        <p class="lead">A programação completa, com horários, salas e responsáveis, poderá ser atualizada conforme a organização do evento.</p>
+      </div>
+
+      <div class="program-list">
+        <article class="program-item">
+          <div class="program-item__icon" aria-hidden="true">🎙️</div>
+          <div>
+            <h3>Conferência de abertura</h3>
+            <p>Atividade inicial sobre o tema “Educação e Informática: uma abordagem integrada”, destacando desafios e possibilidades da articulação entre educação, tecnologia e formação acadêmica.</p>
+          </div>
+        </article>
+        <article class="program-item">
+          <div class="program-item__icon" aria-hidden="true">👥</div>
+          <div>
+            <h3>Mesas-redondas</h3>
+            <p>Espaços de debate com convidados, docentes e participantes sobre educação, tecnologia, inovação, práticas pedagógicas e formação profissional.</p>
+          </div>
+        </article>
+        <article class="program-item">
+          <div class="program-item__icon" aria-hidden="true">📚</div>
+          <div>
+            <h3>Palestras temáticas</h3>
+            <p>Atividades vinculadas às áreas de Matemática, Pedagogia e Sistemas de Informação, com foco em experiências acadêmicas e profissionais.</p>
+          </div>
+        </article>
+        <article class="program-item">
+          <div class="program-item__icon" aria-hidden="true">🧾</div>
+          <div>
+            <h3>Apresentação de banners científicos</h3>
+            <p>Socialização de trabalhos acadêmicos, projetos de ensino, pesquisa, extensão, relatos de experiência e demais produções científicas.</p>
+          </div>
+        </article>
+        <article class="program-item">
+          <div class="program-item__icon" aria-hidden="true">💻</div>
+          <div>
+            <h3>Minicursos</h3>
+            <p>Atividades práticas e formativas voltadas ao desenvolvimento de competências específicas e à aplicação de conhecimentos.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="submissao" aria-labelledby="titulo-submissao">
+      <div class="section-title">
+        <span class="section-title__kicker">Submissão de trabalhos</span>
+        <h2 id="titulo-submissao">Chamada de resumos acadêmicos</h2>
+        <p class="lead">Estudantes, docentes e pesquisadores poderão submeter resumos para apresentação na modalidade banner científico.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <h3>Período de submissão</h3>
+          <div class="dates-box">
+            <div class="date-row"><strong>Início</strong><span>01/08/2026</span></div>
+            <div class="date-row"><strong>Fim</strong><span>30/08/2026</span></div>
+            <div class="date-row"><strong>Evento</strong><span>16 a 18/09/2026</span></div>
+          </div>
+          <a class="btn btn--secondary" href="--LINK_SUBMISSAO--" target="_blank" rel="noopener">Acessar submissão</a>
+        </div>
+        <div class="panel">
+          <h3>Áreas e temas aceitos</h3>
+          <p>
+            Serão aceitos trabalhos relacionados às áreas de Matemática, Pedagogia, Sistemas de Informação, Educação, Tecnologia, Inovação, Ensino, Pesquisa, Extensão, Formação Docente, Práticas Pedagógicas e temas interdisciplinares alinhados ao tema geral do evento.
+          </p>
+          <div class="topics" aria-label="Temas aceitos">
+            <span class="tag">Matemática</span>
+            <span class="tag">Pedagogia</span>
+            <span class="tag">Sistemas de Informação</span>
+            <span class="tag">Educação</span>
+            <span class="tag">Tecnologia</span>
+            <span class="tag">Inovação</span>
+            <span class="tag">Ensino</span>
+            <span class="tag">Extensão</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="inscricao" aria-labelledby="titulo-inscricao">
+      <div class="section-title">
+        <span class="section-title__kicker">Inscrição</span>
+        <h2 id="titulo-inscricao">Participe da Semana Acadêmica</h2>
+        <p class="lead">As inscrições devem ser realizadas pelo link oficial do evento. Acompanhe também os canais oficiais da UFMS/CPPP para atualizações sobre programação, submissões e orientações aos participantes.</p>
+      </div>
+      <div class="panel">
+        <h3>Quem pode participar?</h3>
+        <p>
+          O evento é voltado a estudantes, docentes, técnicos, pesquisadores, profissionais da educação e tecnologia, além de participantes de outras instituições de ensino superior interessados na integração entre educação e informática.
+        </p>
+        <a class="btn btn--primary" href="--LINK_INSCRICAO--" target="_blank" rel="noopener">Fazer inscrição no evento</a>
+      </div>
+    </section>
+
+    <section id="comissoes" aria-labelledby="titulo-comissoes">
+      <div class="section-title">
+        <span class="section-title__kicker">Equipe do evento</span>
+        <h2 id="titulo-comissoes">Comissão Organizadora e Comitê Científico</h2>
+      </div>
+      <div class="grid-2">
+        <div class="panel">
+          <h3>Comissão Organizadora</h3>
+          <p>
+            Responsável pelo planejamento, coordenação e execução das atividades do evento, incluindo articulação entre cursos, organização da programação, inscrições, divulgação e apoio às atividades acadêmicas.
+          </p>
+          <p><strong>Composição:</strong> inserir nomes, funções, cursos e instituições.</p>
+        </div>
+        <div class="panel">
+          <h3>Comitê Científico</h3>
+          <p>
+            Responsável pela avaliação dos resumos submetidos, observando critérios de qualidade, relevância, clareza, coerência metodológica e aderência ao tema do evento.
+          </p>
+          <p><strong>Composição:</strong> inserir nomes, áreas, cursos e instituições.</p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="cta" aria-labelledby="titulo-cta">
+      <div>
+        <h2 id="titulo-cta">Submeta seu resumo e participe do evento</h2>
+        <p>Integre-se à programação acadêmica da UFMS/CPPP e divulgue sua produção científica.</p>
+      </div>
+      <div class="cta__actions">
+        <a class="btn btn--primary" href="--LINK_SUBMISSAO--" target="_blank" rel="noopener">Submeter trabalho</a>
+        <a class="btn btn--ghost" href="--LINK_INSCRICAO--" target="_blank" rel="noopener">Fazer inscrição</a>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <div class="footer__inner">
+      <div>
+        <strong>Realização:</strong> UFMS – Campus de Ponta Porã (CPPP)<br />
+        1ª Semana Acadêmica do CPPP · Educação e Informática: uma abordagem integrada
+      </div>
+      <div class="footer__links">
+        <a href="--LINK_INSCRICAO--" target="_blank" rel="noopener">Inscrição</a>
+        <a href="--LINK_SUBMISSAO--" target="_blank" rel="noopener">Submissão</a>
+        <a href="#inicio">Topo</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
