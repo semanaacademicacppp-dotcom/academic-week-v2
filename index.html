@@ -441,6 +441,138 @@
     .footer__links { display: flex; gap: 14px; flex-wrap: wrap; }
     .footer__links a { color: #fff; font-weight: 800; text-decoration: none; }
 
+    .program-tabs { display: grid; gap: 0; }
+
+    .tabs-nav {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-btn {
+      appearance: none;
+      font-family: inherit;
+      border: 1px solid var(--borda);
+      border-bottom: none;
+      background: rgba(255, 255, 255, .55);
+      color: var(--roxo-medio);
+      font-weight: 900;
+      font-size: .95rem;
+      line-height: 1.25;
+      padding: 13px 26px;
+      border-radius: 16px 16px 0 0;
+      cursor: pointer;
+      text-align: center;
+      transition: background .18s ease, color .18s ease;
+    }
+
+    .tab-btn__date {
+      display: block;
+      font-size: .74rem;
+      font-weight: 700;
+      opacity: .78;
+      margin-top: 2px;
+    }
+
+    .tab-btn:hover { background: rgba(255, 255, 255, .85); color: var(--roxo); }
+
+    .tab-btn.is-active {
+      background: rgba(255, 255, 255, .92);
+      color: var(--laranja-vivo);
+      box-shadow: 0 -10px 22px rgba(31, 24, 55, .08);
+    }
+
+    .tab-btn:focus-visible { outline: 2px solid var(--laranja-vivo); outline-offset: 2px; }
+
+    .tabs-panel {
+      background: rgba(255, 255, 255, .92);
+      border: 1px solid var(--borda);
+      border-radius: var(--raio);
+      padding: 30px;
+      box-shadow: var(--sombra);
+      position: relative;
+    }
+
+    .day-panel { display: none; }
+    .day-panel.is-active { display: block; }
+
+    .day-panel__note {
+      margin: 22px 0 0;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(237, 94, 33, .08);
+      border: 1px solid rgba(237, 94, 33, .22);
+      color: var(--roxo-escuro);
+      font-size: .92rem;
+    }
+
+    .subtabs-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .subtab-btn {
+      appearance: none;
+      font-family: inherit;
+      border: 1px solid var(--borda);
+      background: rgba(0, 108, 104, .05);
+      color: var(--teal);
+      font-weight: 800;
+      font-size: .85rem;
+      padding: 9px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background .18s ease, color .18s ease;
+    }
+
+    .subtab-btn:hover { background: rgba(0, 108, 104, .14); }
+
+    .subtab-btn.is-active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: #fff;
+    }
+
+    .subtab-btn:focus-visible { outline: 2px solid var(--laranja-vivo); outline-offset: 2px; }
+
+    .curso-panel { display: none; }
+    .curso-panel.is-active { display: block; }
+
+    .table-scroll { overflow-x: auto; }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .93rem;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--borda);
+      vertical-align: top;
+    }
+
+    .schedule-table th {
+      color: var(--roxo);
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: .72rem;
+      letter-spacing: .06em;
+      background: rgba(0, 108, 104, .06);
+      white-space: nowrap;
+    }
+
+    .schedule-table tr:last-child td { border-bottom: none; }
+    .schedule-table td.hora { color: var(--laranja-vivo); font-weight: 800; white-space: nowrap; }
+
     @media (max-width: 920px) {
       nav { display: none; }
       .hero, .grid-2, .cta { grid-template-columns: 1fr; }
@@ -457,6 +589,13 @@
       .btn { width: 100%; }
       .program-item { grid-template-columns: 1fr; }
       .date-row { align-items: flex-start; flex-direction: column; }
+      .tabs-nav { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+      .tab-btn { padding: 11px 18px; font-size: .88rem; flex: 0 0 auto; }
+      .tabs-panel { padding: 22px 18px; border-radius: 0 0 var(--raio) var(--raio); }
+      .subtabs-nav { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+      .subtab-btn { flex: 0 0 auto; }
+      .schedule-table { font-size: .85rem; }
+      .schedule-table th, .schedule-table td { padding: 10px; }
     }
   </style>
 </head>
@@ -553,47 +692,103 @@
       <div class="section-title">
         <span class="section-title__kicker">Programação</span>
         <h2 id="titulo-programacao">Atividades previstas</h2>
-        <p class="lead">A programação completa, com horários, salas e responsáveis, poderá ser atualizada conforme a organização do evento.</p>
+        <p class="lead">Confira a programação organizada por dia. Selecione uma aba para ver os horários, palestras e minicursos.</p>
       </div>
 
-      <div class="program-list">
-        <article class="program-item">
-          <div class="program-item__icon" aria-hidden="true">🎙️</div>
-          <div>
-            <h3>Conferência de abertura</h3>
-            <p>Atividade inicial sobre o tema “Educação e Informática: uma abordagem integrada”, destacando desafios e possibilidades da articulação entre educação, tecnologia e formação acadêmica.</p>
+      <div class="program-tabs">
+        <div class="tabs-nav" role="tablist" aria-label="Dias do evento">
+          <button type="button" class="tab-btn is-active" role="tab" aria-selected="true" aria-controls="dia-1" id="tab-1" onclick="mostrarDiaProgramacao(1, this)">1º dia<span class="tab-btn__date">16/09</span></button>
+          <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="dia-2" id="tab-2" onclick="mostrarDiaProgramacao(2, this)">2º dia<span class="tab-btn__date">17/09</span></button>
+          <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="dia-3" id="tab-3" onclick="mostrarDiaProgramacao(3, this)">3º dia<span class="tab-btn__date">18/09</span></button>
+        </div>
+
+        <div class="tabs-panel">
+          <div class="day-panel is-active" id="dia-1" role="tabpanel" aria-labelledby="tab-1">
+            <div class="table-scroll">
+              <table class="schedule-table">
+                <thead>
+                  <tr><th>Horário</th><th>Atividade</th><th>Descrição</th><th>Local</th><th>Responsável</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td class="hora">—</td><td>Abertura oficial</td><td>—</td><td>Anfiteatro</td><td>Carol, Leonardo e coordenadores (apoio: Priscila)</td></tr>
+                  <tr><td class="hora">19:00 – 21:00</td><td>Palestra inicial</td><td>Tema a definir</td><td>Anfiteatro</td><td>—</td></tr>
+                  <tr><td class="hora">21:00 – 21:30</td><td>Atividade cultural</td><td>Dança ou música (a definir)</td><td>—</td><td>—</td></tr>
+                  <tr><td class="hora">21:30 – 22:00</td><td>Coffee break</td><td>—</td><td>Pátio</td><td>Priscila</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </article>
-        <article class="program-item">
-          <div class="program-item__icon" aria-hidden="true">👥</div>
-          <div>
-            <h3>Mesas-redondas</h3>
-            <p>Espaços de debate com convidados, docentes e participantes sobre educação, tecnologia, inovação, práticas pedagógicas e formação profissional.</p>
+
+          <div class="day-panel" id="dia-2" role="tabpanel" aria-labelledby="tab-2">
+            <div class="table-scroll">
+              <table class="schedule-table">
+                <thead>
+                  <tr><th>Horário</th><th>Atividade</th><th>Descrição</th><th>Local</th><th>Responsável</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td class="hora">19:00 – 21:00</td><td>Banners</td><td>—</td><td>Anfiteatro</td><td>Antonio</td></tr>
+                  <tr><td class="hora">21:00 – 21:20</td><td>Intervalo</td><td>—</td><td>—</td><td>—</td></tr>
+                  <tr><td class="hora">21:20 – 22:30</td><td>Palestra — Pedagogia</td><td>Inteligência artificial na acessibilidade linguística para estudantes surdos na educação básica (Nelson Dias); Da graduação ao mercado de trabalho: o que dizem nossos egressos? — mesa de conversa mediada pela professora Mara Lucinéia Marques Correa Bueno</td><td>—</td><td>Pedagogia</td></tr>
+                  <tr><td class="hora">21:20 – 22:30</td><td>Palestra — Matemática</td><td>Tema a definir</td><td>—</td><td>Matemática</td></tr>
+                  <tr><td class="hora">21:20 – 22:30</td><td>Palestra — Sistemas de Informação</td><td>Do "Hello World" aos Micro Frontends: uma jornada pela evolução no desenvolvimento front-end (Alan Schio)</td><td>—</td><td>S.I.</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </article>
-        <article class="program-item">
-          <div class="program-item__icon" aria-hidden="true">📚</div>
-          <div>
-            <h3>Palestras temáticas</h3>
-            <p>Atividades vinculadas às áreas de Matemática, Pedagogia e Sistemas de Informação, com foco em experiências acadêmicas e profissionais.</p>
+
+          <div class="day-panel" id="dia-3" role="tabpanel" aria-labelledby="tab-3">
+            <div class="subtabs-nav" role="tablist" aria-label="Cursos do 3º dia">
+              <button type="button" class="subtab-btn is-active" role="tab" aria-selected="true" aria-controls="dia3-matematica" id="subtab-matematica" onclick="mostrarCursoDia3('matematica', this)">Matemática</button>
+              <button type="button" class="subtab-btn" role="tab" aria-selected="false" aria-controls="dia3-pedagogia" id="subtab-pedagogia" onclick="mostrarCursoDia3('pedagogia', this)">Pedagogia</button>
+              <button type="button" class="subtab-btn" role="tab" aria-selected="false" aria-controls="dia3-si" id="subtab-si" onclick="mostrarCursoDia3('si', this)">Sistemas de Informação</button>
+            </div>
+
+            <div class="curso-panel is-active" id="dia3-matematica" role="tabpanel" aria-labelledby="subtab-matematica">
+              <div class="table-scroll">
+                <table class="schedule-table">
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th></tr></thead>
+                  <tbody>
+                    <tr><td>Minicurso 1</td><td>A definir</td><td>—</td></tr>
+                    <tr><td>Minicurso 2</td><td>A definir</td><td>—</td></tr>
+                    <tr><td>Minicurso 3</td><td>A definir</td><td>—</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="curso-panel" id="dia3-pedagogia" role="tabpanel" aria-labelledby="subtab-pedagogia">
+              <div class="table-scroll">
+                <table class="schedule-table">
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th></tr></thead>
+                  <tbody>
+                    <tr><td>Minicurso 1</td><td>TDAH — título a definir (Profª Ilma Regina Castro Saramago)</td><td>—</td></tr>
+                    <tr><td>Minicurso 2</td><td>Afetividade e Educação Digital: construindo relações de aprendizagem em tempos de tecnologias (Viviane Aparecida Ferreira Favareto Cacheffo)</td><td>—</td></tr>
+                    <tr><td>Minicurso 3</td><td>Bases de dados públicas do IBGE e Mapbiomas como suporte para projetos e ações de educação ambiental (Ana Carolina Torelli Marquezini Faccin)</td><td>Sala Verde</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="curso-panel" id="dia3-si" role="tabpanel" aria-labelledby="subtab-si">
+              <div class="table-scroll">
+                <table class="schedule-table">
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th></tr></thead>
+                  <tbody>
+                    <tr><td>Minicurso 1</td><td>Vue na Prática: da estrutura ao deploy (Alan Schio)</td><td>Lab Inf 1</td></tr>
+                    <tr><td>Minicurso 2</td><td>A definir</td><td>—</td></tr>
+                    <tr><td>Minicurso 3</td><td>A definir</td><td>—</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <p class="day-panel__note">Observação: poderá ser realizado apenas um minicurso por área, ocupando todo o período.</p>
           </div>
-        </article>
-        <article class="program-item">
-          <div class="program-item__icon" aria-hidden="true">🧾</div>
-          <div>
-            <h3>Apresentação de banners científicos</h3>
-            <p>Socialização de trabalhos acadêmicos, projetos de ensino, pesquisa, extensão, relatos de experiência e demais produções científicas.</p>
-          </div>
-        </article>
-        <article class="program-item">
-          <div class="program-item__icon" aria-hidden="true">💻</div>
-          <div>
-            <h3>Minicursos</h3>
-            <p>Atividades práticas e formativas voltadas ao desenvolvimento de competências específicas e à aplicação de conhecimentos.</p>
-          </div>
-        </article>
+        </div>
       </div>
     </section>
+
+    <!-- Programação antiga removida do front-end. -->
 
     <section id="submissao" aria-labelledby="titulo-submissao">
       <div class="section-title">
@@ -608,6 +803,7 @@
           <div class="dates-box">
             <div class="date-row"><strong>Início</strong><span>27/07/2026</span></div>
             <div class="date-row"><strong>Fim</strong><span>24/08/2026</span></div>
+            <div class="date-row"><strong>Submissão de banners digitais</strong><span>27/07/2026 a 24/08/2026</span></div>
             <div class="date-row"><strong>Divulgação dos resultados</strong><span>08/09/2026</span></div>
             <div class="date-row"><strong>Apresentação dos trabalhos</strong><span>17/09/2026</span></div>
           </div>
@@ -658,14 +854,26 @@
           <p>
             Responsável pelo planejamento, coordenação e execução das atividades do evento, incluindo articulação entre cursos, organização da programação, inscrições, divulgação e apoio às atividades acadêmicas.
           </p>
-          <p><strong>Composição:</strong> inserir nomes, funções, cursos e instituições.</p>
+          <p><strong>Composição:</strong></p>
+          <ul>
+            <li>Priscila - priscila.martins@ufms.br </li>
+            <li>Ana Carolina Torelli Marquezini Faccin - "Email"</li>
+            <li>Viviane Aparecida Ferreira Favareto Cacheffo - "Email"</li>
+          </ul>
         </div>
         <div class="panel">
           <h3>Comitê Científico</h3>
           <p>
             Responsável pela avaliação dos resumos submetidos, observando critérios de qualidade, relevância, clareza, coerência metodológica e aderência ao tema do evento.
           </p>
-          <p><strong>Composição:</strong> inserir nomes, áreas, cursos e instituições.</p>
+          <p><strong>Composição:</strong></p>
+          <ul>
+            <li>Antonio Peixoto de Araujo Neto - "Email" </li>
+            <li>Ellen Marianne Bernal Cavalheiro - "Email" </li>
+            <li>Kleiton Andre Schneider - "Email"</li>
+            <li>Natalia Cristina de Oliveira - "Email"</li>
+            <li>Pedro Flavio Silva Othechar - "Email"</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -695,5 +903,33 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    function mostrarDiaProgramacao(numero, botao) {
+      document.querySelectorAll('#programacao .day-panel').forEach(function (painel) {
+        painel.classList.remove('is-active');
+      });
+      document.querySelectorAll('#programacao .tab-btn').forEach(function (aba) {
+        aba.classList.remove('is-active');
+        aba.setAttribute('aria-selected', 'false');
+      });
+      document.getElementById('dia-' + numero).classList.add('is-active');
+      botao.classList.add('is-active');
+      botao.setAttribute('aria-selected', 'true');
+    }
+
+    function mostrarCursoDia3(curso, botao) {
+      document.querySelectorAll('#dia-3 .curso-panel').forEach(function (painel) {
+        painel.classList.remove('is-active');
+      });
+      document.querySelectorAll('#dia-3 .subtab-btn').forEach(function (aba) {
+        aba.classList.remove('is-active');
+        aba.setAttribute('aria-selected', 'false');
+      });
+      document.getElementById('dia3-' + curso).classList.add('is-active');
+      botao.classList.add('is-active');
+      botao.setAttribute('aria-selected', 'true');
+    }
+  </script>
 </body>
 </html>
