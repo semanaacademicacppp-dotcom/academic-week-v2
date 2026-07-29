@@ -303,6 +303,13 @@
       align-items: start;
     }
 
+    .stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
     .panel {
       background: rgba(255,255,255,.92);
       border: 1px solid var(--borda);
@@ -657,7 +664,7 @@
       </div>
       <div class="info-card">
         <span class="info-card__label">Submissões</span>
-        <span class="info-card__value">27/07/2026 <br>a 24/08/2026</span>
+        <span class="info-card__value">27/07/2026 a 24/08/2026</span>
       </div>
     </div>
 
@@ -797,7 +804,7 @@
         <p class="lead">Estudantes, docentes e pesquisadores poderão submeter resumos para apresentação na modalidade banner científico.</p>
       </div>
 
-      <div class="grid-2">
+      <div class="stack">
         <div class="panel">
           <h3>Período de submissão</h3>
           <div class="dates-box">
