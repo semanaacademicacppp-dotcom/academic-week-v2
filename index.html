@@ -603,14 +603,24 @@
     .day-panel { display: none; }
     .day-panel.is-active { display: block; }
 
-    .day-panel__note {
-      margin: 22px 0 0;
-      padding: 12px 16px;
+    .section-note {
+      display: inline-block;
+      margin: 4px 0 0;
+      padding: 9px 16px;
       border-radius: 14px;
-      background: rgba(237, 94, 33, .08);
-      border: 1px solid rgba(237, 94, 33, .22);
+      background: rgba(0, 108, 104, .07);
+      border: 1px solid rgba(0, 108, 104, .2);
       color: var(--roxo-escuro);
-      font-size: .92rem;
+      font-size: .88rem;
+    }
+
+    .day-section-title {
+      margin: 28px 0 14px;
+      color: var(--teal);
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: -.01em;
+      text-align: center;
     }
 
     .subtabs-nav {
@@ -677,29 +687,175 @@
     .schedule-table tr:last-child td { border-bottom: none; }
     .schedule-table td.hora { color: var(--laranja-vivo); font-weight: 800; white-space: nowrap; }
 
-    @media (max-width: 920px) {
-      nav { display: none; }
-      .hero, .grid-2, .cta { grid-template-columns: 1fr; }
-      .quick-info { grid-template-columns: 1fr 1fr; }
-      .hero__visual { min-height: 260px; }
-      .footer__inner { grid-template-columns: 1fr; }
+    /* ---- Linhas clicáveis de mini-cursos / palestras ---- */
+    .schedule-table tr.is-clickable {
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+    .schedule-table tr.is-clickable:hover {
+      background: rgba(0, 108, 104, .07);
+    }
+    .schedule-table tr.is-clickable:focus-visible {
+      outline: 2px solid var(--laranja-vivo);
+      outline-offset: -2px;
+    }
+    .schedule-table tr.is-clickable td:first-child {
+      position: relative;
+    }
+    .row-hint {
+      display: block;
+      align-items: center;
+      gap: 6px;
+      font-size: .72rem;
+      font-weight: 800;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-top: 4px;
+    }
+    .activity-name {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .row-hint::before {
+      content: "＋";
+      display: inline-grid;
+      place-items: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(0, 108, 104, .14);
+      font-size: .68rem;
     }
 
+    /* ---- Modal / janela flutuante de mini-curso ---- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(31, 24, 55, .55);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+
+    .modal-overlay.is-open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-box {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      max-height: 82vh;
+      overflow-y: auto;
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--borda);
+      box-shadow: 0 25px 60px rgba(31, 24, 55, .35);
+      padding: 30px 28px 28px;
+      transform: translateY(14px) scale(.97);
+      opacity: 0;
+      transition: transform .22s ease, opacity .22s ease;
+    }
+
+    .modal-overlay.is-open .modal-box {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--borda);
+      background: rgba(0,0,0,.03);
+      color: var(--roxo);
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: background .15s ease, transform .15s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(237, 94, 33, .12);
+      color: var(--laranja-vivo);
+      transform: rotate(90deg);
+    }
+
+    .modal-tag {
+      display: inline-flex;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(0, 108, 104, .1);
+      color: var(--teal);
+      font-weight: 900;
+      font-size: .74rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 12px;
+    }
+
+    .modal-box h3 {
+      margin: 0 0 6px;
+      color: var(--roxo);
+      font-size: 1.4rem;
+      line-height: 1.25;
+      padding-right: 24px;
+    }
+
+    .modal-box .modal-meta {
+      display: grid;
+      gap: 8px;
+      margin: 16px 0 4px;
+    }
+
+    .modal-meta__row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: .92rem;
+    }
+
+    .modal-meta__row .k {
+      flex: none;
+      width: 84px;
+      color: var(--cinza);
+      font-weight: 800;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .modal-meta__row .v {
+      color: var(--texto);
+      font-weight: 700;
+    }
+
+    .modal-desc {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--borda);
+      color: rgba(31, 24, 55, .86);
+      font-size: .96rem;
+    }
+
+    .modal-desc p { margin: 0 0 10px; }
+    .modal-desc p:last-child { margin-bottom: 0; }
+
     @media (max-width: 560px) {
-      .topbar__inner, .hero, .quick-info, section, .cta, .footer__inner { width: min(100% - 24px, var(--max)); }
-      .quick-info { grid-template-columns: 1fr; }
-      .hero { padding-top: 28px; gap: 22px; }
-      .hero__actions, .cta__actions { display: grid; }
-      .btn { width: 100%; }
-      .program-item { grid-template-columns: 1fr; }
-      .date-row { align-items: flex-start; flex-direction: column; }
-      .tabs-nav { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
-      .tab-btn { padding: 11px 18px; font-size: .88rem; flex: 0 0 auto; }
-      .tabs-panel { padding: 22px 18px; border-radius: 0 0 var(--raio) var(--raio); }
-      .subtabs-nav { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
-      .subtab-btn { flex: 0 0 auto; }
-      .schedule-table { font-size: .85rem; }
-      .schedule-table th, .schedule-table td { padding: 10px; }
+      .modal-box { padding: 26px 20px 22px; border-radius: 16px; }
     }
   </style>
 </head>
@@ -796,7 +952,8 @@
       <div class="section-title">
         <span class="section-title__kicker">Programação</span>
         <h2 id="titulo-programacao">Atividades previstas</h2>
-        <p class="lead">Confira a programação organizada por dia. Selecione uma aba para ver os horários, palestras e minicursos.</p>
+        <p class="lead">Confira a programação organizada por dia. Selecione uma aba para ver os horários; quando houver trilhas paralelas, escolha o curso para ver os detalhes. Clique em uma atividade destacada para ver mais informações.</p>
+        <p class="section-note">Cerimonial de todas as atividades sob responsabilidade de Priscila.</p>
       </div>
 
       <div class="program-tabs">
@@ -814,12 +971,113 @@
                   <tr><th>Horário</th><th>Atividade</th><th>Descrição</th><th>Local</th><th>Responsável</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td class="hora">—</td><td>Abertura oficial</td><td>—</td><td>Anfiteatro</td><td>Carol, Leonardo e coordenadores (apoio: Priscila)</td></tr>
-                  <tr><td class="hora">19:00 – 21:00</td><td>Palestra inicial</td><td>Tema a definir</td><td>Anfiteatro</td><td>—</td></tr>
-                  <tr><td class="hora">21:00 – 21:30</td><td>Atividade cultural</td><td>Dança ou música (a definir)</td><td>—</td><td>—</td></tr>
-                  <tr><td class="hora">21:30 – 22:00</td><td>Coffee break</td><td>—</td><td>Pátio</td><td>Priscila</td></tr>
+                  <tr><td class="hora">19:00 – 19:15</td><td>Abertura oficial</td><td>—</td><td>Anfiteatro</td><td>Priscila, Leonardo e coordenadores</td></tr>
+                  <tr><td class="hora">19:15 – 19:35</td><td>Atividade cultural</td><td>Dança ou música (a definir)</td><td>—</td><td>—</td></tr>
+                  <tr class="is-clickable" tabindex="0" role="button"
+                      data-titulo="Palestra inicial"
+                      data-tag="Palestra de abertura"
+                      data-autor="Ádamo Duarte"
+                      data-local="Anfiteatro"
+                      data-horario="20:00 – 21:10"
+                      data-desc="Educação e Informática: uma abordagem integrada. Palestra que abre oficialmente a programação científica da Semana Acadêmica, propondo um olhar integrado sobre como a tecnologia e a informática dialogam com os processos educacionais contemporâneos."
+                      onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                    <td class="hora">20:00 – 21:10</td>
+                    <td><div class="activity-name">Palestra inicial</div></td>
+                    <td>Educação e Informática: uma abordagem integrada</td>
+                    <td>Anfiteatro</td>
+                    <td>Ádamo Duarte</td>
+                  </tr>
                 </tbody>
               </table>
+            </div>
+
+            <div class="day-section-title">Ciclo de palestras — 21:20 às 22:30</div>
+            <div class="subtabs-nav" role="tablist" aria-label="Trilhas do ciclo de palestras">
+              <button type="button" class="subtab-btn is-active" role="tab" aria-selected="true" aria-controls="d1-pedagogia" id="subtab-d1-pedagogia" data-group="d1-ciclo" onclick="mostrarSubaba('d1-ciclo','d1-pedagogia', this)">Pedagogia</button>
+              <button type="button" class="subtab-btn" role="tab" aria-selected="false" aria-controls="d1-matematica" id="subtab-d1-matematica" data-group="d1-ciclo" onclick="mostrarSubaba('d1-ciclo','d1-matematica', this)">Matemática</button>
+              <button type="button" class="subtab-btn" role="tab" aria-selected="false" aria-controls="d1-si" id="subtab-d1-si" data-group="d1-ciclo" onclick="mostrarSubaba('d1-ciclo','d1-si', this)">Sistemas de Informação</button>
+            </div>
+
+            <div class="curso-panel is-active" id="d1-pedagogia" data-group="d1-ciclo" role="tabpanel" aria-labelledby="subtab-d1-pedagogia">
+              <div class="table-scroll">
+                <table class="schedule-table">
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th><th>Autor</th></tr></thead>
+                  <tbody>
+                    <tr class="is-clickable" tabindex="0" role="button"
+                        data-titulo="Palestra — Pedagogia"
+                        data-tag="Ciclo de palestras · Pedagogia"
+                        data-autor="Nelson Dias"
+                        data-local="Sala Verde"
+                        data-horario="21:20 – 22:30"
+                        data-desc="Inteligência artificial na acessibilidade linguística para estudantes surdos na educação básica. A palestra discute como ferramentas de inteligência artificial podem apoiar a comunicação e a inclusão de estudantes surdos no contexto escolar."
+                        onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                      <td><div class="activity-name">Palestra</div></td>
+                      <td>Inteligência artificial na acessibilidade linguística para estudantes surdos na educação básica</td>
+                      <td>Sala Verde</td>
+                      <td>Nelson Dias</td>
+                    </tr>
+                    <tr class="is-clickable" tabindex="0" role="button"
+                        data-titulo="Mesa de conversa — Pedagogia"
+                        data-tag="Ciclo de palestras · Pedagogia"
+                        data-autor="Mediação: Mara Lucinéia Marques Correa Bueno"
+                        data-local="A definir"
+                        data-horario="21:20 – 22:30"
+                        data-desc="Da graduação ao mercado de trabalho: o que dizem nossos egressos? Um bate-papo com egressos do curso de Pedagogia sobre trajetória profissional, desafios e aprendizados após a formação, com mediação da professora Mara Lucinéia Marques Correa Bueno."
+                        onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                      <td><div class="activity-name">Mesa de conversa</div></td>
+                      <td>Da graduação ao mercado de trabalho: o que dizem nossos egressos? (mediação da profª Mara Lucinéia Marques Correa Bueno)</td>
+                      <td>—</td>
+                      <td>Mara Lucinéia Marques Correa Bueno</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="curso-panel" id="d1-matematica" data-group="d1-ciclo" role="tabpanel" aria-labelledby="subtab-d1-matematica">
+              <div class="table-scroll">
+                <table class="schedule-table">
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th><th>Autor</th></tr></thead>
+                  <tbody>
+                    <tr class="is-clickable" tabindex="0" role="button"
+                        data-titulo="Palestra — Matemática"
+                        data-tag="Ciclo de palestras · Matemática"
+                        data-autor="A definir"
+                        data-local="Anfiteatro 1"
+                        data-horario="21:20 – 22:30"
+                        data-desc="Tema a definir. Detalhes sobre o conteúdo, o palestrante e os objetivos desta atividade serão divulgados em breve pela organização."
+                        onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                      <td><div class="activity-name">Palestra</div></td>
+                      <td>Tema a definir</td>
+                      <td>Anfiteatro 1</td>
+                      <td>A definir</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="curso-panel" id="d1-si" data-group="d1-ciclo" role="tabpanel" aria-labelledby="subtab-d1-si">
+              <div class="table-scroll">
+                <table class="schedule-table">
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th><th>Autor</th></tr></thead>
+                  <tbody>
+                    <tr class="is-clickable" tabindex="0" role="button"
+                        data-titulo="Palestra — Sistemas de Informação"
+                        data-tag="Ciclo de palestras · Sistemas de Informação"
+                        data-autor="Juliana da Costa Feitosa"
+                        data-local="Anfiteatro 2"
+                        data-horario="21:20 – 22:30"
+                        data-desc="Tema a definir. Detalhes sobre o conteúdo desta palestra serão divulgados em breve pela organização."
+                        onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                      <td><div class="activity-name">Palestra</div></td>
+                      <td>Tema a definir</td>
+                      <td>Anfiteatro 2</td>
+                      <td>Juliana da Costa Feitosa</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
@@ -830,63 +1088,186 @@
                   <tr><th>Horário</th><th>Atividade</th><th>Descrição</th><th>Local</th><th>Responsável</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td class="hora">19:00 – 21:00</td><td>Banners</td><td>—</td><td>Anfiteatro</td><td>Antonio</td></tr>
-                  <tr><td class="hora">21:00 – 21:20</td><td>Intervalo</td><td>—</td><td>—</td><td>—</td></tr>
-                  <tr><td class="hora">21:20 – 22:30</td><td>Palestra — Pedagogia</td><td>Inteligência artificial na acessibilidade linguística para estudantes surdos na educação básica (Nelson Dias); Da graduação ao mercado de trabalho: o que dizem nossos egressos? — mesa de conversa mediada pela professora Mara Lucinéia Marques Correa Bueno</td><td>—</td><td>Pedagogia</td></tr>
-                  <tr><td class="hora">21:20 – 22:30</td><td>Palestra — Matemática</td><td>Tema a definir</td><td>—</td><td>Matemática</td></tr>
-                  <tr><td class="hora">21:20 – 22:30</td><td>Palestra — Sistemas de Informação</td><td>Do "Hello World" aos Micro Frontends: uma jornada pela evolução no desenvolvimento front-end (Alan Schio)</td><td>—</td><td>S.I.</td></tr>
+                  <tr><td class="hora">19:00 – 20:30</td><td>Sessão de banners</td><td>—</td><td>Anfiteatro 1</td><td>Antonio</td></tr>
+                  <tr><td class="hora">20:30 – 20:45</td><td>Intervalo</td><td>—</td><td>—</td><td>—</td></tr>
+                  <tr><td class="hora">20:45 – 22:10</td><td>Sessão de banners (continuação)</td><td>—</td><td>Anfiteatro 1</td><td>—</td></tr>
                 </tbody>
               </table>
+            </div>
+
+            <div class="day-section-title">Mini-cursos — 19:00 às 22:00</div>
+            <div class="subtabs-nav" role="tablist" aria-label="Mini-cursos do 2º dia">
+              <button type="button" class="subtab-btn is-active" role="tab" aria-selected="true" aria-controls="d2-si" id="subtab-d2-si" data-group="d2-mini" onclick="mostrarSubaba('d2-mini','d2-si', this)">Sistemas de Informação</button>
+              <button type="button" class="subtab-btn" role="tab" aria-selected="false" aria-controls="d2-pedagogia" id="subtab-d2-pedagogia" data-group="d2-mini" onclick="mostrarSubaba('d2-mini','d2-pedagogia', this)">Pedagogia</button>
+              <button type="button" class="subtab-btn" role="tab" aria-selected="false" aria-controls="d2-outro" id="subtab-d2-outro" data-group="d2-mini" onclick="mostrarSubaba('d2-mini','d2-outro', this)">Mini-curso 3</button>
+            </div>
+
+            <div class="curso-panel is-active" id="d2-si" data-group="d2-mini" role="tabpanel" aria-labelledby="subtab-d2-si">
+              <div class="table-scroll">
+                <table class="schedule-table">
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th><th>Autor</th></tr></thead>
+                  <tbody>
+                    <tr class="is-clickable" tabindex="0" role="button"
+                        data-titulo="Mini-curso 1 — Vue na Prática"
+                        data-tag="Mini-curso · Sistemas de Informação"
+                        data-autor="Alan Schio"
+                        data-local="Lab Inf 1"
+                        data-horario="19:00 – 22:00 · 17/09"
+                        data-desc="Vue na Prática: da estrutura ao deploy. Mini-curso prático de introdução ao framework Vue.js, cobrindo desde a organização básica de um projeto até o processo de publicação (deploy) de uma aplicação. Indicado para quem já possui noções básicas de programação web e deseja aprender na prática o funcionamento do framework."
+                        onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                      <td>
+                        <div class="activity-name">Mini-curso 1</div>
+                        <div class="row-hint">Ver detalhes</div>
+                      </td>
+                      <td>Vue na Prática: da estrutura ao deploy</td>
+                      <td>Lab Inf 1</td>
+                      <td>Alan Schio</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="curso-panel" id="d2-pedagogia" data-group="d2-mini" role="tabpanel" aria-labelledby="subtab-d2-pedagogia">
+              <div class="table-scroll">
+                <table class="schedule-table">
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th><th>Autor</th></tr></thead>
+                  <tbody>
+                    <tr class="is-clickable" tabindex="0" role="button"
+                        data-titulo="Mini-curso 2 — TDAH"
+                        data-tag="Mini-curso · Pedagogia"
+                        data-autor="Ilma Regina Castro Saramago"
+                        data-local="A definir"
+                        data-horario="19:00 – 22:00 · 17/09"
+                        data-desc="TDAH — título a definir. Mini-curso voltado à discussão do Transtorno do Déficit de Atenção com Hiperatividade (TDAH) no contexto escolar, com foco em estratégias pedagógicas de identificação e apoio aos estudantes."
+                        onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                      <td>
+                        <div class="activity-name">Mini-curso 2</div>
+                        <div class="row-hint">Ver detalhes</div>
+                      </td>
+                      <td>TDAH — título a definir</td>
+                      <td>—</td>
+                      <td>Ilma Regina Castro Saramago</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="curso-panel" id="d2-outro" data-group="d2-mini" role="tabpanel" aria-labelledby="subtab-d2-outro">
+              <div class="table-scroll">
+                <table class="schedule-table">
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th><th>Autor</th></tr></thead>
+                  <tbody>
+                    <tr class="is-clickable" tabindex="0" role="button"
+                        data-titulo="Mini-curso 3"
+                        data-tag="Mini-curso · 2º dia"
+                        data-autor="A definir"
+                        data-local="A definir"
+                        data-horario="19:00 – 22:00 · 17/09"
+                        data-desc="Tema e área a definir. Detalhes sobre o conteúdo, o ministrante e o local serão divulgados em breve pela organização do evento."
+                        onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                      <td>
+                        <div class="activity-name">Mini-curso 3</div>
+                        <div class="row-hint">Ver detalhes</div>
+                      </td>
+                      <td>Tema e área a definir</td>
+                      <td>—</td>
+                      <td>A definir</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
           <div class="day-panel" id="dia-3" role="tabpanel" aria-labelledby="tab-3">
-            <div class="subtabs-nav" role="tablist" aria-label="Cursos do 3º dia">
-              <button type="button" class="subtab-btn is-active" role="tab" aria-selected="true" aria-controls="dia3-matematica" id="subtab-matematica" onclick="mostrarCursoDia3('matematica', this)">Matemática</button>
-              <button type="button" class="subtab-btn" role="tab" aria-selected="false" aria-controls="dia3-pedagogia" id="subtab-pedagogia" onclick="mostrarCursoDia3('pedagogia', this)">Pedagogia</button>
-              <button type="button" class="subtab-btn" role="tab" aria-selected="false" aria-controls="dia3-si" id="subtab-si" onclick="mostrarCursoDia3('si', this)">Sistemas de Informação</button>
+            <div class="table-scroll">
+              <table class="schedule-table">
+                <thead>
+                  <tr><th>Horário</th><th>Atividade</th><th>Descrição</th><th>Local</th><th>Responsável</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td class="hora">19:00 – 20:30</td><td>Sessão de banners</td><td>—</td><td>Anfiteatro 1</td><td>Ellen</td></tr>
+                  <tr><td class="hora">20:30 – 20:45</td><td>Intervalo</td><td>—</td><td>—</td><td>—</td></tr>
+                  <tr><td class="hora">20:45 – 22:10</td><td>Sessão de premiação</td><td>—</td><td>Anfiteatro 1</td><td>—</td></tr>
+                </tbody>
+              </table>
             </div>
 
-            <div class="curso-panel is-active" id="dia3-matematica" role="tabpanel" aria-labelledby="subtab-matematica">
+            <div class="day-section-title">Mini-cursos — horário a definir</div>
+            <div class="subtabs-nav" role="tablist" aria-label="Mini-cursos do 3º dia">
+              <button type="button" class="subtab-btn is-active" role="tab" aria-selected="true" aria-controls="d3-matematica" id="subtab-d3-matematica" data-group="d3-mini" onclick="mostrarSubaba('d3-mini','d3-matematica', this)">Matemática</button>
+              <button type="button" class="subtab-btn" role="tab" aria-selected="false" aria-controls="d3-pedagogia" id="subtab-d3-pedagogia" data-group="d3-mini" onclick="mostrarSubaba('d3-mini','d3-pedagogia', this)">Pedagogia</button>
+            </div>
+
+            <div class="curso-panel is-active" id="d3-matematica" data-group="d3-mini" role="tabpanel" aria-labelledby="subtab-d3-matematica">
               <div class="table-scroll">
                 <table class="schedule-table">
-                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th></tr></thead>
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th><th>Autor</th></tr></thead>
                   <tbody>
-                    <tr><td>Minicurso 1</td><td>A definir</td><td>—</td></tr>
-                    <tr><td>Minicurso 2</td><td>A definir</td><td>—</td></tr>
-                    <tr><td>Minicurso 3</td><td>A definir</td><td>—</td></tr>
+                    <tr class="is-clickable" tabindex="0" role="button"
+                        data-titulo="Mini-curso 1 — Matemática"
+                        data-tag="Mini-curso · Matemática"
+                        data-autor="Ana"
+                        data-local="Lab Inf"
+                        data-horario="Horário a definir · 18/09"
+                        data-desc="Tema a definir. Detalhes sobre o conteúdo e os objetivos deste mini-curso serão divulgados em breve pela organização."
+                        onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                      <td>
+                        <div class="activity-name">Mini-curso 1</div>
+                        <div class="row-hint">Ver detalhes</div>
+                      </td>
+                      <td>Tema a definir</td>
+                      <td>Lab Inf</td>
+                      <td>Ana</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
 
-            <div class="curso-panel" id="dia3-pedagogia" role="tabpanel" aria-labelledby="subtab-pedagogia">
+            <div class="curso-panel" id="d3-pedagogia" data-group="d3-mini" role="tabpanel" aria-labelledby="subtab-d3-pedagogia">
               <div class="table-scroll">
                 <table class="schedule-table">
-                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th></tr></thead>
+                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th><th>Autor</th></tr></thead>
                   <tbody>
-                    <tr><td>Minicurso 1</td><td>TDAH — título a definir (Profª Ilma Regina Castro Saramago)</td><td>—</td></tr>
-                    <tr><td>Minicurso 2</td><td>Afetividade e Educação Digital: construindo relações de aprendizagem em tempos de tecnologias (Viviane Aparecida Ferreira Favareto Cacheffo)</td><td>—</td></tr>
-                    <tr><td>Minicurso 3</td><td>Bases de dados públicas do IBGE e Mapbiomas como suporte para projetos e ações de educação ambiental (Ana Carolina Torelli Marquezini Faccin)</td><td>Sala Verde</td></tr>
+                    <tr class="is-clickable" tabindex="0" role="button"
+                        data-titulo="Mini-curso 2 — Afetividade e Educação Digital"
+                        data-tag="Mini-curso · Pedagogia"
+                        data-autor="Viviane Aparecida Ferreira Favareto Cacheffo"
+                        data-local="A definir"
+                        data-horario="Horário a definir · 18/09"
+                        data-desc="Afetividade e Educação Digital: construindo relações de aprendizagem em tempos de tecnologias. O mini-curso propõe refletir sobre o papel da afetividade nos processos de ensino-aprendizagem mediados por recursos digitais, discutindo estratégias para fortalecer vínculos entre educadores e estudantes em ambientes tecnológicos."
+                        onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                      <td>
+                        <div class="activity-name">Mini-curso 2</div>
+                        <div class="row-hint">Ver detalhes</div>
+                      </td>
+                      <td>Afetividade e Educação Digital: construindo relações de aprendizagem em tempos de tecnologias</td>
+                      <td>—</td>
+                      <td>Viviane Aparecida Ferreira Favareto Cacheffo</td>
+                    </tr>
+                    <tr class="is-clickable" tabindex="0" role="button"
+                        data-titulo="Mini-curso 3 — Bases de dados públicas"
+                        data-tag="Mini-curso · Pedagogia"
+                        data-autor="Ana Carolina Torelli Marquezini Faccin"
+                        data-local="Sala Verde"
+                        data-horario="Horário a definir · 18/09"
+                        data-desc="Bases de dados públicas do IBGE e Mapbiomas como suporte para projetos e ações de educação ambiental. Mini-curso que apresenta fontes públicas de dados geográficos e ambientais e mostra como utilizá-las no planejamento de projetos e atividades pedagógicas voltadas à educação ambiental."
+                        onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
+                      <td>
+                        <div class="activity-name">Mini-curso 3</div>
+                        <div class="row-hint">Ver detalhes</div>
+                      </td>
+                      <td>Bases de dados públicas do IBGE e Mapbiomas como suporte para projetos e ações de educação ambiental</td>
+                      <td>Sala Verde</td>
+                      <td>Ana Carolina Torelli Marquezini Faccin</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-
-            <div class="curso-panel" id="dia3-si" role="tabpanel" aria-labelledby="subtab-si">
-              <div class="table-scroll">
-                <table class="schedule-table">
-                  <thead><tr><th>Atividade</th><th>Descrição</th><th>Local</th></tr></thead>
-                  <tbody>
-                    <tr><td>Minicurso 1</td><td>Vue na Prática: da estrutura ao deploy (Alan Schio)</td><td>Lab Inf 1</td></tr>
-                    <tr><td>Minicurso 2</td><td>A definir</td><td>—</td></tr>
-                    <tr><td>Minicurso 3</td><td>A definir</td><td>—</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <p class="day-panel__note">Observação: poderá ser realizado apenas um minicurso por área, ocupando todo o período.</p>
           </div>
         </div>
       </div>
@@ -961,8 +1342,8 @@
           <p><strong>Composição:</strong></p>
           <ul>
             <li>Priscila - priscila.martins@ufms.br </li>
-            <li>Ana Carolina Torelli Marquezini Faccin - "Email"</li>
-            <li>Viviane Aparecida Ferreira Favareto Cacheffo - "Email"</li>
+            <li>Ana Carolina Torelli Marquezini Faccin - ana.faccin@ufms.br</li>
+            <li>Viviane Aparecida Ferreira Favareto Cacheffo - favareto.cacheffo@ufms.br</li>
           </ul>
         </div>
         <div class="panel">
@@ -972,10 +1353,10 @@
           </p>
           <p><strong>Composição:</strong></p>
           <ul>
-            <li>Antonio Peixoto de Araujo Neto - "Email" </li>
-            <li>Ellen Marianne Bernal Cavalheiro - "Email" </li>
-            <li>Kleiton Andre Schneider - "Email"</li>
-            <li>Natalia Cristina de Oliveira - "Email"</li>
+            <li>Antonio Peixoto de Araujo Neto - antonio.peixoto@ufms.br</li>
+            <li>Ellen Marianne Bernal Cavalheiro - ellen.bernal@ufms.br</li>
+            <li>Kleiton Andre Schneider - kleiton.schneider@ufms.br </li>
+            <li>Natalia Cristina de Oliveira - natalia_oliveira@ufms.br</li>
             <li>Pedro Flavio Silva Othechar - "Email"</li>
           </ul>
         </div>
@@ -991,21 +1372,21 @@
           </div>
         </div>
         <div class="templates-grid">
-          <a class="template-card" href="assets/templates/modelo-template-resumo.docx" download>
+          <a class="template-card" href="assets/templates/Modelo_Template_Resumo.docx" download>
             <span class="template-card__icon">📄</span>
             <span class="template-card__info">
               <span class="template-card__name">Modelo_Template_Resumo.docx</span>
               <span class="template-card__hint">Baixar Word</span>
             </span>
           </a>
-          <a class="template-card" href="assets/templates/guia-submissao-trabalhos.docx" download>
+          <a class="template-card" href="assets/templates/GUIA_PARA_SUBMISSAO_DE_TRABALHOS.docx" download>
             <span class="template-card__icon">📘</span>
             <span class="template-card__info">
               <span class="template-card__name">Guia para submissão de trabalhos.docx</span>
               <span class="template-card__hint">Baixar Word</span>
             </span>
           </a>
-          <a class="template-card" href="assets/templates/template-semana-academica-cppp.zip" download>
+          <a class="template-card" href="assets/templates/Template_Semana_Academica_CPPP.zip" download>
             <span class="template-card__icon">🗂️</span>
             <span class="template-card__info">
               <span class="template-card__name">Template - Semana Acadêmica CPPP.zip</span>
@@ -1042,6 +1423,23 @@
     </div>
   </footer>
 
+  <!-- Modal / janela flutuante de detalhes da atividade -->
+  <div class="modal-overlay" id="modalAtividade" onclick="fecharModalAoClicarFora(event)" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+      <button type="button" class="modal-close" onclick="fecharModalAtividade()" aria-label="Fechar">✕</button>
+      <span class="modal-tag" id="modalTag">Mini-curso</span>
+      <h3 id="modalTitulo">Título da atividade</h3>
+      <div class="modal-meta">
+        <div class="modal-meta__row"><span class="k">Horário</span><span class="v" id="modalHorario">—</span></div>
+        <div class="modal-meta__row"><span class="k">Local</span><span class="v" id="modalLocal">—</span></div>
+        <div class="modal-meta__row"><span class="k">Ministrante</span><span class="v" id="modalAutor">—</span></div>
+      </div>
+      <div class="modal-desc">
+        <p id="modalDesc">—</p>
+      </div>
+    </div>
+  </div>
+
   <script>
     function mostrarDiaProgramacao(numero, botao) {
       document.querySelectorAll('#programacao .day-panel').forEach(function (painel) {
@@ -1056,18 +1454,58 @@
       botao.setAttribute('aria-selected', 'true');
     }
 
-    function mostrarCursoDia3(curso, botao) {
-      document.querySelectorAll('#dia-3 .curso-panel').forEach(function (painel) {
+    function mostrarSubaba(grupo, alvoId, botao) {
+      document.querySelectorAll('.curso-panel[data-group="' + grupo + '"]').forEach(function (painel) {
         painel.classList.remove('is-active');
       });
-      document.querySelectorAll('#dia-3 .subtab-btn').forEach(function (aba) {
+      document.querySelectorAll('.subtab-btn[data-group="' + grupo + '"]').forEach(function (aba) {
         aba.classList.remove('is-active');
         aba.setAttribute('aria-selected', 'false');
       });
-      document.getElementById('dia3-' + curso).classList.add('is-active');
+      document.getElementById(alvoId).classList.add('is-active');
       botao.classList.add('is-active');
       botao.setAttribute('aria-selected', 'true');
     }
+
+    /* ---- Modal de detalhes da atividade / mini-curso ---- */
+    var modalAtividadeEl = document.getElementById('modalAtividade');
+    var ultimoElementoFocado = null;
+
+    function abrirModalAtividade(linha) {
+      document.getElementById('modalTag').textContent = linha.dataset.tag || 'Atividade';
+      document.getElementById('modalTitulo').textContent = linha.dataset.titulo || '';
+      document.getElementById('modalHorario').textContent = linha.dataset.horario || '—';
+      document.getElementById('modalLocal').textContent = linha.dataset.local || '—';
+      document.getElementById('modalAutor').textContent = linha.dataset.autor || '—';
+      document.getElementById('modalDesc').textContent = linha.dataset.desc || '—';
+
+      ultimoElementoFocado = document.activeElement;
+      modalAtividadeEl.classList.add('is-open');
+      modalAtividadeEl.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      var botaoFechar = modalAtividadeEl.querySelector('.modal-close');
+      if (botaoFechar) botaoFechar.focus();
+    }
+
+    function fecharModalAtividade() {
+      modalAtividadeEl.classList.remove('is-open');
+      modalAtividadeEl.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (ultimoElementoFocado) ultimoElementoFocado.focus();
+    }
+
+    function fecharModalAoClicarFora(evento) {
+      if (evento.target === modalAtividadeEl) {
+        fecharModalAtividade();
+      }
+    }
+
+    document.addEventListener('keydown', function (evento) {
+      if (evento.key === 'Escape' && modalAtividadeEl.classList.contains('is-open')) {
+        fecharModalAtividade();
+      }
+    });
   </script>
 </body>
 </html>
