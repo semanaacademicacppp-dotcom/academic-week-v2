@@ -9,6 +9,9 @@
   <meta property="og:title" content="1ª Semana Acadêmica do CPPP" />
   <meta property="og:description" content="Educação e Informática: uma abordagem integrada. UFMS – Campus de Ponta Porã, 16 a 18 de setembro de 2026." />
   <meta property="og:image" content="assets/cabecalho-semana-cppp.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     :root {
       --roxo: #32195B;
@@ -40,6 +43,11 @@
         radial-gradient(circle at 90% 8%, rgba(72, 192, 187, .14), transparent 32%),
         linear-gradient(180deg, #fff 0%, var(--fundo) 100%);
       line-height: 1.6;
+    }
+
+    .hero h1,
+    .hero #titulo-evento {
+      font-family: Helvetica, Inter, Montserrat, Arial, sans-serif;
     }
 
     a { color: inherit; }
@@ -156,6 +164,33 @@
       letter-spacing: -.05em;
       color: var(--roxo);
       text-transform: uppercase;
+    }
+
+    .hero h1,
+    .hero #titulo-evento {
+      font-family: "Bebas Neue", Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      letter-spacing: .02em;
+      display: block;
+      font-size: clamp(3.4rem, 7vw, 7.5rem);
+      line-height: .8;
+      text-transform: uppercase;
+    }
+
+    .hero h1 strong,
+    .hero #titulo-evento strong {
+      display: inline-block;
+      font-weight: 400;
+    }
+
+    .hero h1 .line,
+    .hero #titulo-evento .line {
+      display: block;
+    }
+
+    .hero h1 .orange,
+    .hero #titulo-evento .orange {
+      color: var(--laranja-vivo);
     }
 
     .hero strong.orange { color: var(--laranja-vivo); }
@@ -327,6 +362,35 @@
 
     .panel p { margin: 0 0 14px; }
     .panel p:last-child { margin-bottom: 0; }
+
+    .alert-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #fff6e5;
+      border: 1px solid #f0c869;
+      border-left: 5px solid #e0a52c;
+      border-radius: var(--raio);
+      padding: 18px 22px;
+      margin: 0 0 24px;
+      box-shadow: 0 10px 24px rgba(224, 165, 44, .12);
+    }
+    .alert-banner__icon {
+      font-size: 1.6rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .alert-banner__text strong {
+      display: block;
+      color: #8a5a06;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+    .alert-banner__text p {
+      margin: 0;
+      color: #6b4b0f;
+      line-height: 1.5;
+    }
 
     .program-list {
       display: grid;
@@ -859,7 +923,11 @@
     <section class="hero" aria-labelledby="titulo-evento">
       <div class="hero__content">
         <p class="eyebrow">UFMS – Campus de Ponta Porã</p>
-        <h1 id="titulo-evento"><strong class="orange">1ª</strong> Semana Acadêmica do CPPP</h1>
+        <h1 id="titulo-evento">
+          <span class="line"><strong class="orange">1ª</strong> SEMANA</span>
+          <span class="line">ACADEMICA</span>
+          <span class="line"><span class="orange">DO CPPP</span></span>
+        </h1>
         <p class="hero__subtitle">Educação e Informática: uma abordagem integrada</p>
         <p class="hero__text">
           Evento acadêmico integrado dos cursos de Licenciatura em Matemática, Licenciatura em Pedagogia e Bacharelado em Sistemas de Informação da UFMS/CPPP, voltado à formação, à troca de experiências e à divulgação da produção acadêmica.
@@ -891,8 +959,16 @@
       </div>
       <div class="info-card">
         <span class="info-card__label">Submissões</span>
-        <span class="info-card__value">27/07/2026 a 24/08/2026</span>
+        <span class="info-card__value">27/07/2026 a 31/08/2026</span>
       </div>
+    </div>
+
+    <div class="alert-banner" role="status">
+      <span class="alert-banner__icon">⏰</span>
+      <span class="alert-banner__text">
+        <strong>Prazo de submissão prorrogado!</strong>
+        <p>A data de envio dos resumos/banners foi prorrogada até o dia <strong>31/08/2026</strong>. Confira os novos prazos na seção de Submissão.</p>
+      </span>
     </div>
 
     <section id="apresentacao" aria-labelledby="titulo-apresentacao">
@@ -1088,15 +1164,16 @@
                     <td>Profª Drª Ilma Regina Castro Saramago</td>
                   </tr>
                   <tr class="is-clickable" tabindex="0" role="button"
-                      data-titulo="Desafio Web Zero: uma ideia, 4 horas, um aplicativo"
+                      data-titulo="Dojo: Desafio Web Zero"
                       data-tag="Dojo · Sistemas de Informação"
                       data-autor="Prof. Gedson Faria"
                       data-local="Anfiteatro 1"
                       data-horario="19:00 – 22:00"
-                      data-desc="Desafio Web Zero: uma ideia, 4 horas, um aplicativo."
+                      data-imagem="assets/minicursos/SAcad_Mini%20curso%20-%20Gedson.png"
+                      data-desc="O minicurso Dojo: Desafio Web Zero é uma atividade prática e colaborativa voltada à criação rápida de uma aplicação web a partir de uma ideia inicial. Em formato de dojo, os participantes serão desafiados a transformar um problema ou proposta simples em um protótipo funcional, passando pelas etapas de definição da ideia, organização das telas, estruturação da aplicação e desenvolvimento inicial. Durante as 4 horas de atividade, o foco estará na aprendizagem pela prática, na colaboração entre os participantes e na experimentação de soluções digitais. A proposta é mostrar que, com planejamento objetivo, trabalho em equipe e uso adequado de ferramentas web, é possível sair do zero e construir uma primeira versão de um aplicativo."
                       onclick="abrirModalAtividade(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalAtividade(this);}">
                     <td class="hora">19:00 – 22:00</td>
-                    <td><strong>Dojo:</strong> Desafio Web Zero: uma ideia, 4 horas, um aplicativo</td>
+                    <td><strong>Dojo:</strong> Desafio Web Zero</td>
                     <td>Anfiteatro 1</td>
                     <td>Prof. Gedson Faria</td>
                   </tr>
@@ -1195,8 +1272,8 @@
           <h3>Período de submissão</h3>
           <div class="dates-box">
             <div class="date-row"><strong>Início</strong><span>27/07/2026</span></div>
-            <div class="date-row"><strong>Fim</strong><span>24/08/2026</span></div>
-            <div class="date-row"><strong>Submissão de banners digitais</strong><span>27/07/2026 a 24/08/2026</span></div>
+            <div class="date-row"><strong>Fim</strong><span>31/08/2026 <em>(prazo prorrogado)</em></span></div>
+            <div class="date-row"><strong>Submissão de banners digitais</strong><span>27/07/2026 a 31/08/2026</span></div>
             <div class="date-row"><strong>Divulgação dos resultados</strong><span>08/09/2026</span></div>
             <div class="date-row"><strong>Apresentação dos trabalhos</strong><span>17/09/2026</span></div>
           </div>
