@@ -364,6 +364,8 @@
     .panel p:last-child { margin-bottom: 0; }
 
     .alert-banner {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto 24px;
       display: flex;
       align-items: flex-start;
       gap: 14px;
@@ -372,8 +374,8 @@
       border-left: 5px solid #e0a52c;
       border-radius: var(--raio);
       padding: 18px 22px;
-      margin: 0 0 24px;
       box-shadow: 0 10px 24px rgba(224, 165, 44, .12);
+      box-sizing: border-box;
     }
     .alert-banner__icon {
       font-size: 1.6rem;
